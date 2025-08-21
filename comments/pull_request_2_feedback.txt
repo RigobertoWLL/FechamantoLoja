@@ -1,0 +1,9 @@
+Ajustes adicionais necessários:
+
+1. **Formatação Gerenciador**: Ainda está aplicando negrito, deve remover o negrito da formatação laranja
+2. **Colunas adicionais ao fechar loja**:
+   - Coluna I: alterar para 'Não Tem'
+   - Coluna K: limpar o conteúdo (excluir o que está escrito)
+   - Coluna L: alterar para 'Não Tem'
+
+Essas alterações devem ser feitas no método que atualiza o status da loja no gerenciador.
