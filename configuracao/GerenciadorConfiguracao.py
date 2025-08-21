@@ -5,7 +5,7 @@ from typing import Dict, Any
 
 class GerenciadorConfiguracao:
 
-    def __init__(self, arquivo_config: str = "Config.json"):
+    def __init__(self, arquivo_config: str = "config.json"):
         from utilitarios.logger import configurar_logging
         self.logger = configurar_logging()
         self.arquivo_config = arquivo_config
@@ -82,7 +82,7 @@ class GerenciadorConfiguracao:
 
     @property
     def arquivo_credenciais(self) -> str:
-        return self.config.get("arquivo_credenciais", "Credentials.json")
+        return self.config.get("arquivo_credenciais", "credentials.json")
 
     @property
     def aba_gerenciador(self) -> str:

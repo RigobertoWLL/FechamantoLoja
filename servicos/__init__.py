@@ -1,5 +1,5 @@
-from .gerenciador_loja import GerenciadorLoja
-from .gerenciador_planilhas_google import GerenciadorPlanilhasGoogle
-from .gerenciador_firebird import GerenciadorFirebird
+from .GerenciadorLoja import GerenciadorLoja
+from .GerenciadorPlanilhasGoogle import GerenciadorPlanilhasGoogle
+from .GerenciadorFirebird import GerenciadorFirebird
 
 __all__ = ['GerenciadorLoja', 'GerenciadorPlanilhasGoogle', 'GerenciadorFirebird']

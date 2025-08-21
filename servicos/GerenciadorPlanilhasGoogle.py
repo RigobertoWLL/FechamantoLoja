@@ -4,9 +4,9 @@ from gspread.exceptions import APIError, SpreadsheetNotFound, WorksheetNotFound
 from typing import List, Optional, Tuple, Any, Dict
 import time
 
-from configuracao.gerenciador_configuracao import GerenciadorConfiguracao
+from configuracao.GerenciadorConfiguracao import GerenciadorConfiguracao
 from utilitarios.logger import obter_logger, MixinLogger, log_operacao
-from utilitarios.utilitarios import (
+from utilitarios.Utilitarios import (
     limpar_texto,
     normalizar_tipo_numero_loja,
     comparar_numeros_loja,
@@ -208,7 +208,7 @@ class GerenciadorPlanilhasGoogle(MixinLogger):
 
             formato_laranja = {
                 "backgroundColor": {"red": 1.0, "green": 0.647, "blue": 0.0},
-                "textFormat": {"foregroundColor": {"red": 1.0, "green": 1.0, "blue": 1.0}, "bold": True},
+                "textFormat": {"bold": True}
             }
 
             range_linha = f"{linha}:{linha}"
@@ -232,8 +232,8 @@ class GerenciadorPlanilhasGoogle(MixinLogger):
                 return False
 
             formato_verde = {
-                "backgroundColor": {"red": 0.0, "green": 0.8, "blue": 0.0},
-                "textFormat": {"foregroundColor": {"red": 1.0, "green": 1.0, "blue": 1.0}, "bold": True},
+                "backgroundColor": {"red": 0.863, "green": 0.941, "blue": 0.776},  # #dcf0c6
+                "horizontalAlignment": "CENTER"
             }
 
             range_linha = f"{linha}:{linha}"

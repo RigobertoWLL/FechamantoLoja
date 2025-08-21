@@ -2,10 +2,10 @@ import sys
 import argparse
 from typing import List, Optional
 
-from configuracao.gerenciador_configuracao import GerenciadorConfiguracao
-from servicos.gerenciador_loja import GerenciadorLoja
+from configuracao.GerenciadorConfiguracao import GerenciadorConfiguracao
+from servicos.GerenciadorLoja import GerenciadorLoja
 from utilitarios.logger import configurar_logging
-from utilitarios.utilitarios import validar_numero_loja, listar_formatos_suportados
+from utilitarios.Utilitarios import validar_numero_loja, listar_formatos_suportados
 
 
 def imprimir_banner():
