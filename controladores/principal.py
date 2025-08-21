@@ -1,23 +1,14 @@
-#!/usr/bin/env python3
-"""
-Sistema de Fechamento de Lojas - Google Sheets
-==============================================
-
-ATUALIZADO: Exibe informações completas incluindo Grupo, Nome e Status
-"""
-
 import sys
 import argparse
 from typing import List, Optional
 
-from ConfigManager import ConfigManager
-from LojaManager import LojaManager
-from Logger import configurar_logging
-from Utils import validar_numero_loja, listar_formatos_suportados
+from configuracao.gerenciador_configuracao import GerenciadorConfiguracao
+from servicos.gerenciador_loja import GerenciadorLoja
+from utilitarios.logger import configurar_logging
+from utilitarios.utilitarios import validar_numero_loja, listar_formatos_suportados
 
 
 def imprimir_banner():
-    """Imprime o banner do sistema."""
     print("=" * 60)
     print("🏪 SISTEMA DE FECHAMENTO DE LOJAS")
     print("   Integração com Google Sheets")
@@ -27,7 +18,6 @@ def imprimir_banner():
 
 
 def imprimir_formatos_suportados():
-    """Imprime informações sobre formatos de código suportados."""
     formatos = listar_formatos_suportados()
 
     print("📋 FORMATOS DE CÓDIGO SUPORTADOS:")
@@ -45,19 +35,13 @@ def imprimir_formatos_suportados():
 
 
 def validar_configuracao() -> bool:
-    """
-    Valida se todas as configurações necessárias estão definidas.
-
-    Returns:
-        bool: True se configuração válida, False caso contrário.
-    """
     logger = configurar_logging()
 
     print("📋 Validando configuração...")
 
     try:
-        config_manager = ConfigManager()
-        if not config_manager.validar_configuracao():
+        gerenciador_config = GerenciadorConfiguracao()
+        if not gerenciador_config.validar_configuracao():
             print("❌ Configuração inválida!")
             print("\nPara configurar o sistema:")
             print("1. Verifique o arquivo Config.json")
@@ -72,17 +56,7 @@ def validar_configuracao() -> bool:
 
 
 def fechar_loja_unica(numero_loja: str, observacao: Optional[str] = None) -> bool:
-    """
-    Fecha uma única loja.
-
-    Args:
-        numero_loja (str): Número da loja para fechar.
-        observacao (Optional[str]): Observação personalizada.
-
-    Returns:
-        bool: True se fechada com sucesso, False caso contrário.
-    """
-    gerenciador = LojaManager()
+    gerenciador = GerenciadorLoja()
 
     try:
         print(f"🔌 Conectando ao Google Sheets...")
@@ -118,16 +92,7 @@ def fechar_loja_unica(numero_loja: str, observacao: Optional[str] = None) -> boo
 
 
 def verificar_loja(numero_loja: str) -> bool:
-    """
-    ATUALIZADO: Verifica se uma loja existe e mostra informações completas.
-
-    Args:
-        numero_loja (str): Número da loja para verificar.
-
-    Returns:
-        bool: True se encontrada, False caso contrário.
-    """
-    gerenciador = LojaManager()
+    gerenciador = GerenciadorLoja()
 
     try:
         print(f"🔌 Conectando ao Google Sheets...")
@@ -165,17 +130,6 @@ def verificar_loja(numero_loja: str) -> bool:
 def fechar_multiplas_lojas(
     numeros_lojas_str: str, observacao: Optional[str] = None
 ) -> bool:
-    """
-    Fecha múltiplas lojas.
-
-    Args:
-        numeros_lojas_str (str): String com números das lojas separados por vírgula.
-        observacao (Optional[str]): Observação personalizada.
-
-    Returns:
-        bool: True se pelo menos uma loja foi fechada, False caso contrário.
-    """
-    # Parse dos números das lojas
     try:
         numeros_lojas = [
             loja.strip() for loja in numeros_lojas_str.split(",") if loja.strip()
@@ -187,7 +141,7 @@ def fechar_multiplas_lojas(
         print(f"❌ Erro ao processar lista de lojas: {e}")
         return False
 
-    gerenciador = LojaManager()
+    gerenciador = GerenciadorLoja()
 
     try:
         print(f"🔌 Conectando ao Google Sheets...")
@@ -203,7 +157,6 @@ def fechar_multiplas_lojas(
 
         resultados = gerenciador.fechar_multiplas_lojas(numeros_lojas, observacao)
 
-        # Exibe resultados
         sucessos = 0
         for numero_loja, resultado in resultados.items():
             if resultado.sucesso:
@@ -228,12 +181,6 @@ def fechar_multiplas_lojas(
 
 
 def criar_parser() -> argparse.ArgumentParser:
-    """
-    Cria o parser de argumentos da linha de comando.
-
-    Returns:
-        argparse.ArgumentParser: Parser configurado.
-    """
     parser = argparse.ArgumentParser(
         description="Sistema de Fechamento de Lojas - Google Sheets (com informações completas)",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -241,25 +188,25 @@ def criar_parser() -> argparse.ArgumentParser:
 Exemplos de uso:
 
 Códigos numéricos:
-    python Main.py 123
-    python Main.py 456 "Fechamento por reforma"
+    python main.py 123
+    python main.py 456 "Fechamento por reforma"
 
 Códigos alfanuméricos:
-    python Main.py I05
-    python Main.py T09 "Fechamento temporário"
-    python Main.py i01  # Normalizado automaticamente para I01
+    python main.py I05
+    python main.py T09 "Fechamento temporário"
+    python main.py i01
 
 Verificação (mostra Grupo, Nome, Status D e I):
-    python Main.py --verificar 789
-    python Main.py --verificar I05
+    python main.py --verificar 789
+    python main.py --verificar I05
 
 Múltiplas lojas:
-    python Main.py --multiplas "123,456,789"
-    python Main.py --multiplas "I05,T09,I01"
-    python Main.py --multiplas "100,I05,T09" "Fechamento em lote"
+    python main.py --multiplas "123,456,789"
+    python main.py --multiplas "I05,T09,I01"
+    python main.py --multiplas "100,I05,T09" "Fechamento em lote"
 
 Formatos:
-    python Main.py --formatos  # Mostra formatos suportados
+    python main.py --formatos
 
 Configuração:
     Configure Config.json com suas preferências
@@ -267,7 +214,6 @@ Configuração:
         """,
     )
 
-    # Grupo mutuamente exclusivo para operações principais
     grupo_operacao = parser.add_mutually_exclusive_group(required=True)
 
     grupo_operacao.add_argument(
@@ -304,47 +250,36 @@ Configuração:
 
 
 def main():
-    """Função principal do sistema."""
     try:
-        # Banner
         imprimir_banner()
 
-        # Parse dos argumentos
         parser = criar_parser()
         args = parser.parse_args()
 
-        # Configuração de logging
         nivel_log = "DEBUG" if args.debug else "INFO"
         configurar_logging(nivel_log)
 
-        # Se solicitados formatos, mostra e sai
         if args.formatos:
             imprimir_formatos_suportados()
             sys.exit(0)
 
-        # Validação da configuração
         if not validar_configuracao():
             sys.exit(1)
 
         print()
 
-        # Execução baseada nos argumentos
         sucesso = False
 
         if args.verificar:
-            # Modo verificação
             sucesso = verificar_loja(args.verificar)
 
         elif args.multiplas:
-            # Modo múltiplas lojas
             sucesso = fechar_multiplas_lojas(args.multiplas, args.observacao)
 
         elif args.numero_loja:
-            # Modo loja única
             sucesso = fechar_loja_unica(args.numero_loja, args.observacao)
 
         else:
-            # Não deveria chegar aqui devido ao mutually_exclusive_group
             parser.print_help()
             sys.exit(1)
 
@@ -362,7 +297,3 @@ def main():
     except Exception as e:
         print(f"\n❌ Erro crítico: {e}")
         sys.exit(1)
-
-
-if __name__ == "__main__":
-    main()
