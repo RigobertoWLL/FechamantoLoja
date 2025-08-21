@@ -3,9 +3,9 @@ from typing import Optional, List, Tuple, Any, Dict
 import time
 from contextlib import contextmanager
 
-from configuracao.gerenciador_configuracao import GerenciadorConfiguracao
+from configuracao.GerenciadorConfiguracao import GerenciadorConfiguracao
 from utilitarios.logger import obter_logger, MixinLogger, log_operacao
-from utilitarios.utilitarios import (
+from utilitarios.Utilitarios import (
     validar_numero_loja,
     normalizar_tipo_numero_loja,
     safe_int,

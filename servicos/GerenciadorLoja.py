@@ -1,8 +1,8 @@
 from typing import Optional, Dict, Any
 from modelos.resultado_fechamento import ResultadoFechamento
-from .gerenciador_planilhas_google import GerenciadorPlanilhasGoogle
+from .GerenciadorPlanilhasGoogle import GerenciadorPlanilhasGoogle
 from utilitarios.logger import MixinLogger, log_operacao
-from utilitarios.utilitarios import (
+from utilitarios.Utilitarios import (
     validar_numero_loja,
     validar_nome_loja,
     obter_data_atual,

@@ -1,5 +1,5 @@
-from servicos.gerenciador_loja import GerenciadorLoja
-from servicos.gerenciador_firebird import GerenciadorFirebird
+from servicos.GerenciadorLoja import GerenciadorLoja
+from servicos.GerenciadorFirebird import GerenciadorFirebird
 from utilitarios.logger import configurar_logging
 
 

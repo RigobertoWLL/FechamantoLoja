@@ -2,10 +2,10 @@ import sys
 import argparse
 from typing import List, Optional
 
-from configuracao.gerenciador_configuracao import GerenciadorConfiguracao
-from servicos.gerenciador_loja import GerenciadorLoja
+from configuracao.GerenciadorConfiguracao import GerenciadorConfiguracao
+from servicos.GerenciadorLoja import GerenciadorLoja
 from utilitarios.logger import configurar_logging
-from utilitarios.utilitarios import validar_numero_loja, listar_formatos_suportados
+from utilitarios.Utilitarios import validar_numero_loja, listar_formatos_suportados
 
 
 def imprimir_banner():
@@ -44,8 +44,8 @@ def validar_configuracao() -> bool:
         if not gerenciador_config.validar_configuracao():
             print("❌ Configuração inválida!")
             print("\nPara configurar o sistema:")
-            print("1. Verifique o arquivo Config.json")
-            print("2. Verifique o arquivo Credentials.json")
+            print("1. Verifique o arquivo config.json")
+            print("2. Verifique o arquivo credentials.json")
             return False
     except Exception as e:
         print(f"❌ Erro ao validar configuração: {e}")
@@ -209,8 +209,8 @@ Formatos:
     python main.py --formatos
 
 Configuração:
-    Configure Config.json com suas preferências
-    Configure Credentials.json com suas credenciais Google Sheets
+    Configure config.json com suas preferências
+    Configure credentials.json com suas credenciais Google Sheets
         """,
     )
 

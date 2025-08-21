@@ -1,5 +1,5 @@
 from .logger import configurar_logging, obter_logger, MixinLogger, log_operacao, log_erro, log_info, log_debug, log_warning
-from .utilitarios import *
+from .Utilitarios import *
 
 __all__ = [
     'configurar_logging', 'obter_logger', 'MixinLogger', 'log_operacao', 'log_erro', 'log_info', 'log_debug', 'log_warning',

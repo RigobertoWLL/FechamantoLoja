@@ -35,8 +35,8 @@ Sistema Python moderno e robusto para gerenciar fechamento de lojas em uma plani
 │   └── menu_cmd.py
 ├── main.py                    # Ponto de entrada principal
 ├── menu.py                    # Menu interativo
-├── Config.json                # Configurações centralizadas
-├── Credentials.json           # Credenciais Google Sheets
+├── config.json                # Configurações centralizadas
+├── credentials.json           # Credenciais Google Sheets
 └── requirements.txt           # Dependências Python
 ```
 
@@ -67,7 +67,7 @@ pip install -r requirements.txt
 
 ### 2. Configuração das Credenciais
 
-Edite o arquivo `Credentials.json` com suas credenciais reais do Google Sheets:
+Edite o arquivo `credentials.json` com suas credenciais reais do Google Sheets:
 
 ```json
 {
@@ -87,7 +87,7 @@ Edite o arquivo `Credentials.json` com suas credenciais reais do Google Sheets:
 
 ### 3. Verificar Configuração
 
-O arquivo `Config.json` já está configurado com:
+O arquivo `config.json` já está configurado com:
 - **ID da planilha:** `17Chzn5vkJbouCatul_5iZJl-PW4_BHufMEWTg_-ZOY8`
 - **Configurações otimizadas** para as abas "Gerenciador" e "Lojas Fechadas"
 - **Mapeamento de colunas** configurável
@@ -183,7 +183,7 @@ def fechar_loja(self, numero_loja: str) -> ResultadoFechamento:
 ### ⚙️ Configuração Centralizada
 
 ```json
-// Config.json - Configurações centralizadas
+// config.json - Configurações centralizadas
 {
   "planilha_id": "17Chzn5vkJbouCatul_5iZJl-PW4_BHufMEWTg_-ZOY8",
   "configuracoes_gerenciador": {
@@ -263,7 +263,7 @@ python main.py --verificar 456  # Agora funciona!
 ```
 Erro de autenticação: Invalid credentials
 ```
-**Solução:** Edite `Credentials.json` com suas credenciais reais.
+**Solução:** Edite `credentials.json` com suas credenciais reais.
 
 ### Planilha não encontrada
 ```
