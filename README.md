@@ -11,18 +11,33 @@ Sistema Python moderno e robusto para gerenciar fechamento de lojas em uma plani
 - **✅ Tratamento robusto de tipos:** Funções especializadas para normalização de dados
 - **✅ Logging avançado:** Sistema modular com decorators e níveis configuráveis
 
-### 🏗️ Nova Estrutura (CamelCase)
+### 🏗️ Nova Estrutura Organizada
 ```
 /
-├── Main.py                    # Arquivo principal refatorado
-├── ConfigManager.py           # Gerenciador de configurações JSON
-├── GoogleSheetsManager.py     # Gerenciador Google Sheets melhorado
-├── LojaManager.py            # Gerenciador de operações de lojas
-├── Logger.py                 # Sistema de logging modular
-├── Utils.py                  # Utilitários com tratamento de tipos
-├── Config.json               # Configurações centralizadas
-├── Credentials.json          # Credenciais Google Sheets
-└── requirements.txt          # Dependências Python
+├── modelos/                   # Modelos de dados
+│   ├── __init__.py
+│   └── resultado_fechamento.py
+├── servicos/                  # Serviços de negócio
+│   ├── __init__.py
+│   ├── gerenciador_loja.py
+│   ├── gerenciador_planilhas_google.py
+│   └── gerenciador_firebird.py
+├── configuracao/              # Configurações
+│   ├── __init__.py
+│   └── gerenciador_configuracao.py
+├── utilitarios/               # Utilitários
+│   ├── __init__.py
+│   ├── logger.py
+│   └── utilitarios.py
+├── controladores/             # Controladores da aplicação
+│   ├── __init__.py
+│   ├── principal.py
+│   └── menu_cmd.py
+├── main.py                    # Ponto de entrada principal
+├── menu.py                    # Menu interativo
+├── Config.json                # Configurações centralizadas
+├── Credentials.json           # Credenciais Google Sheets
+└── requirements.txt           # Dependências Python
 ```
 
 ## 📋 Funcionalidades
@@ -82,44 +97,62 @@ O arquivo `Config.json` já está configurado com:
 ### Fechar uma loja
 
 ```bash
-python Main.py 123
+python main.py 123
 ```
 
 ### Fechar loja com observação personalizada
 
 ```bash
-python Main.py 456 "Fechamento por reforma"
+python main.py 456 "Fechamento por reforma"
 ```
 
 ### Verificar se loja existe (sem fechar)
 
 ```bash
-python Main.py --verificar 456  # Agora funciona sem erro!
+python main.py --verificar 456  # Agora funciona sem erro!
 ```
 
 ### Fechar múltiplas lojas
 
 ```bash
-python Main.py --multiplas "123,456,789"
+python main.py --multiplas "123,456,789"
 ```
 
 ### Fechar múltiplas lojas com observação
 
 ```bash
-python Main.py --multiplas "100,200,300" "Fechamento em lote"
+python main.py --multiplas "100,200,300" "Fechamento em lote"
 ```
 
 ### Modo debug
 
 ```bash
-python Main.py --debug --verificar 456
+python main.py --debug --verificar 456
 ```
 
 ### Ajuda
 
 ```bash
-python Main.py --help
+python main.py --help
 ```
+
+### Menu Interativo
+
+Para uma interface mais amigável, use o menu interativo:
+
+```bash
+python menu.py
+```
+
+O menu oferece as seguintes opções:
+- 🏪 Fechar loja (Google Sheets + formatação)
+- 🔥 Atualizar status da loja no Firebird
+- 📊 Verificar loja (Google Sheets)
+- 🔍 Verificar status loja (Firebird)
+- 📋 Listar lojas por status
+- 🔧 Verificar estrutura da tabela
+- 📊 Estatísticas da tabela
+- 🔌 Testar conexões
 
 ## 🔧 Melhorias Técnicas Implementadas
 
@@ -189,7 +222,7 @@ def validar_configuracao(self) -> bool:
 ### Teste do Erro Específico (Loja 456)
 ```bash
 # Teste específico para o erro corrigido
-python Main.py --verificar 456  # Agora funciona!
+python main.py --verificar 456  # Agora funciona!
 ```
 
 ### Teste de Tipos Mistos
@@ -203,18 +236,18 @@ python Main.py --verificar 456  # Agora funciona!
 
 ## 🛠️ Desenvolvimento
 
-### Arquitetura Modular Melhorada
+### Arquitetura Modular Organizada
 
-- **ConfigManager**: Gerenciamento centralizado de configurações
-- **GoogleSheetsManager**: API Google Sheets com tratamento de tipos
-- **LojaManager**: Lógica de negócio robusta
-- **Logger**: Sistema de logging modular
-- **Utils**: Funções utilitárias com tratamento de tipos
+- **modelos**: Classes de dados e entidades (`ResultadoFechamento`)
+- **servicos**: Lógica de negócio (`GerenciadorLoja`, `GerenciadorPlanilhasGoogle`, `GerenciadorFirebird`)
+- **configuracao**: Gerenciamento de configurações (`GerenciadorConfiguracao`)
+- **utilitarios**: Funções auxiliares e logging (`logger`, `utilitarios`)
+- **controladores**: Interface da aplicação (`principal`, `menu_cmd`)
 
 ### Padrões Implementados
 
-- **Mixins**: `LoggerMixin` para logging consistente
-- **Decorators**: `@log_operacao` para logging automático
+- **Mixins**: `MixinLogger` para logging consistente
+- **Decorators**: `@log_operacao` para logging automático  
 - **Dataclasses**: `ResultadoFechamento` para resultados estruturados
 - **Type Hints**: Tipagem completa para melhor manutenibilidade
 
