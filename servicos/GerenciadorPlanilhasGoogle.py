@@ -208,7 +208,7 @@ class GerenciadorPlanilhasGoogle(MixinLogger):
 
             formato_laranja = {
                 "backgroundColor": {"red": 1.0, "green": 0.647, "blue": 0.0},
-                "textFormat": {"bold": True}
+                "textFormat": {}
             }
 
             range_linha = f"{linha}:{linha}"
@@ -264,14 +264,37 @@ class GerenciadorPlanilhasGoogle(MixinLogger):
                 self.logger.error(f"Coluna de status inválida: {coluna_status}")
                 return False
 
+            # Atualizar coluna de status (D)
             aba.update_cell(linha, coluna_int, status_fechada)
+            self.logger.info(f"Coluna {coluna_status} atualizada para '{status_fechada}' na linha {linha}")
+
+            time.sleep(0.5)
+
+            # Atualizar coluna I (9) para "Não Tem"
+            coluna_i = 9
+            aba.update_cell(linha, coluna_i, "Não Tem")
+            self.logger.info(f"Coluna I atualizada para 'Não Tem' na linha {linha}")
+
+            time.sleep(0.5)
+
+            # Atualizar coluna K (11) para vazio
+            coluna_k = 11
+            aba.update_cell(linha, coluna_k, "")
+            self.logger.info(f"Coluna K limpa (conteúdo removido) na linha {linha}")
+
+            time.sleep(0.5)
+
+            # Atualizar coluna L (12) para "Não Tem"
+            coluna_l = 12
+            aba.update_cell(linha, coluna_l, "Não Tem")
+            self.logger.info(f"Coluna L atualizada para 'Não Tem' na linha {linha}")
 
             time.sleep(0.5)
 
             if not self.aplicar_formatacao_laranja_linha(linha):
-                self.logger.warning(f"Status atualizado mas formatação falhou na linha {linha}")
+                self.logger.warning(f"Colunas atualizadas mas formatação falhou na linha {linha}")
 
-            self.logger.info(f"Status da linha {linha} atualizado para '{status_fechada}' com formatação")
+            self.logger.info(f"Todas as colunas da linha {linha} atualizadas com sucesso: Status='{status_fechada}', I='Não Tem', K='', L='Não Tem'")
             return True
 
         except Exception as e:
