@@ -11,33 +11,18 @@ Sistema Python moderno e robusto para gerenciar fechamento de lojas em uma plani
 - **✅ Tratamento robusto de tipos:** Funções especializadas para normalização de dados
 - **✅ Logging avançado:** Sistema modular com decorators e níveis configuráveis
 
-### 🏗️ Nova Estrutura Organizada
+### 🏗️ Nova Estrutura (CamelCase)
 ```
 /
-├── modelos/                   # Modelos de dados
-│   ├── __init__.py
-│   └── resultado_fechamento.py
-├── servicos/                  # Serviços de negócio
-│   ├── __init__.py
-│   ├── gerenciador_loja.py
-│   ├── gerenciador_planilhas_google.py
-│   └── gerenciador_firebird.py
-├── configuracao/              # Configurações
-│   ├── __init__.py
-│   └── gerenciador_configuracao.py
-├── utilitarios/               # Utilitários
-│   ├── __init__.py
-│   ├── logger.py
-│   └── utilitarios.py
-├── controladores/             # Controladores da aplicação
-│   ├── __init__.py
-│   ├── principal.py
-│   └── menu_cmd.py
-├── main.py                    # Ponto de entrada principal
-├── menu.py                    # Menu interativo
-├── config.json                # Configurações centralizadas
-├── credentials.json           # Credenciais Google Sheets
-└── requirements.txt           # Dependências Python
+├── Main.py                    # Arquivo principal refatorado
+├── ConfigManager.py           # Gerenciador de configurações JSON
+├── GoogleSheetsManager.py     # Gerenciador Google Sheets melhorado
+├── LojaManager.py            # Gerenciador de operações de lojas
+├── Logger.py                 # Sistema de logging modular
+├── Utils.py                  # Utilitários com tratamento de tipos
+├── Config.json               # Configurações centralizadas
+├── Credentials.json          # Credenciais Google Sheets
+└── requirements.txt          # Dependências Python
 ```
 
 ## 📋 Funcionalidades
@@ -67,7 +52,7 @@ pip install -r requirements.txt
 
 ### 2. Configuração das Credenciais
 
-Edite o arquivo `credentials.json` com suas credenciais reais do Google Sheets:
+Edite o arquivo `Credentials.json` com suas credenciais reais do Google Sheets:
 
 ```json
 {
@@ -87,7 +72,7 @@ Edite o arquivo `credentials.json` com suas credenciais reais do Google Sheets:
 
 ### 3. Verificar Configuração
 
-O arquivo `config.json` já está configurado com:
+O arquivo `Config.json` já está configurado com:
 - **ID da planilha:** `17Chzn5vkJbouCatul_5iZJl-PW4_BHufMEWTg_-ZOY8`
 - **Configurações otimizadas** para as abas "Gerenciador" e "Lojas Fechadas"
 - **Mapeamento de colunas** configurável
@@ -97,62 +82,44 @@ O arquivo `config.json` já está configurado com:
 ### Fechar uma loja
 
 ```bash
-python main.py 123
+python Main.py 123
 ```
 
 ### Fechar loja com observação personalizada
 
 ```bash
-python main.py 456 "Fechamento por reforma"
+python Main.py 456 "Fechamento por reforma"
 ```
 
 ### Verificar se loja existe (sem fechar)
 
 ```bash
-python main.py --verificar 456  # Agora funciona sem erro!
+python Main.py --verificar 456  # Agora funciona sem erro!
 ```
 
 ### Fechar múltiplas lojas
 
 ```bash
-python main.py --multiplas "123,456,789"
+python Main.py --multiplas "123,456,789"
 ```
 
 ### Fechar múltiplas lojas com observação
 
 ```bash
-python main.py --multiplas "100,200,300" "Fechamento em lote"
+python Main.py --multiplas "100,200,300" "Fechamento em lote"
 ```
 
 ### Modo debug
 
 ```bash
-python main.py --debug --verificar 456
+python Main.py --debug --verificar 456
 ```
 
 ### Ajuda
 
 ```bash
-python main.py --help
+python Main.py --help
 ```
-
-### Menu Interativo
-
-Para uma interface mais amigável, use o menu interativo:
-
-```bash
-python menu.py
-```
-
-O menu oferece as seguintes opções:
-- 🏪 Fechar loja (Google Sheets + formatação)
-- 🔥 Atualizar status da loja no Firebird
-- 📊 Verificar loja (Google Sheets)
-- 🔍 Verificar status loja (Firebird)
-- 📋 Listar lojas por status
-- 🔧 Verificar estrutura da tabela
-- 📊 Estatísticas da tabela
-- 🔌 Testar conexões
 
 ## 🔧 Melhorias Técnicas Implementadas
 
@@ -183,7 +150,7 @@ def fechar_loja(self, numero_loja: str) -> ResultadoFechamento:
 ### ⚙️ Configuração Centralizada
 
 ```json
-// config.json - Configurações centralizadas
+// Config.json - Configurações centralizadas
 {
   "planilha_id": "17Chzn5vkJbouCatul_5iZJl-PW4_BHufMEWTg_-ZOY8",
   "configuracoes_gerenciador": {
@@ -222,7 +189,7 @@ def validar_configuracao(self) -> bool:
 ### Teste do Erro Específico (Loja 456)
 ```bash
 # Teste específico para o erro corrigido
-python main.py --verificar 456  # Agora funciona!
+python Main.py --verificar 456  # Agora funciona!
 ```
 
 ### Teste de Tipos Mistos
@@ -236,18 +203,18 @@ python main.py --verificar 456  # Agora funciona!
 
 ## 🛠️ Desenvolvimento
 
-### Arquitetura Modular Organizada
+### Arquitetura Modular Melhorada
 
-- **modelos**: Classes de dados e entidades (`ResultadoFechamento`)
-- **servicos**: Lógica de negócio (`GerenciadorLoja`, `GerenciadorPlanilhasGoogle`, `GerenciadorFirebird`)
-- **configuracao**: Gerenciamento de configurações (`GerenciadorConfiguracao`)
-- **utilitarios**: Funções auxiliares e logging (`logger`, `utilitarios`)
-- **controladores**: Interface da aplicação (`principal`, `menu_cmd`)
+- **ConfigManager**: Gerenciamento centralizado de configurações
+- **GoogleSheetsManager**: API Google Sheets com tratamento de tipos
+- **LojaManager**: Lógica de negócio robusta
+- **Logger**: Sistema de logging modular
+- **Utils**: Funções utilitárias com tratamento de tipos
 
 ### Padrões Implementados
 
-- **Mixins**: `MixinLogger` para logging consistente
-- **Decorators**: `@log_operacao` para logging automático  
+- **Mixins**: `LoggerMixin` para logging consistente
+- **Decorators**: `@log_operacao` para logging automático
 - **Dataclasses**: `ResultadoFechamento` para resultados estruturados
 - **Type Hints**: Tipagem completa para melhor manutenibilidade
 
@@ -263,7 +230,7 @@ python main.py --verificar 456  # Agora funciona!
 ```
 Erro de autenticação: Invalid credentials
 ```
-**Solução:** Edite `credentials.json` com suas credenciais reais.
+**Solução:** Edite `Credentials.json` com suas credenciais reais.
 
 ### Planilha não encontrada
 ```
